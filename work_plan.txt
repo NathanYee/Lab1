@@ -1,0 +1,7 @@
+Verilog: 10/2
+- Initial Block Diagrams: 9/29
+- Test bench: 10/1
+- ALU construction: 10/2
+Report:10/4
+- Writeup: 10/4
+- Final Block Diagrams: 10/4
