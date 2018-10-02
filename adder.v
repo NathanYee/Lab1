@@ -42,11 +42,12 @@ module FullAdder4bit
           structuralFullAdder _adder (sum[i],carryout0[i], a[i], b[i],carryout0[i-1]);
         end
     endgenerate
+    assign carryout = carryout0[31];
     wire negand, posand, a3inv, b3inv, s3inv;
     `NOT a3inv(a3inv, a[31]);
     `NOT b3inv(b3inv, b[31]);
     `NOT s3inv(s3inv, sum[31]);
-    `AND posand(posand, a3inv, b3inv, carryout0[30]);
+    `AND posand(posand, a3inv, b3inv, carryout0[31]);
     `AND negand(negand, a[31], b[31], s3inv);
     `OR overflowgate(overflow, posand, negand);
 
