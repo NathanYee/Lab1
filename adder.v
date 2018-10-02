@@ -24,25 +24,30 @@ endmodule
 
 module FullAdder4bit
 (
-  output[3:0] sum,  // 2's complement sum of a and b
+  output[31:0] sum,  // 2's complement sum of a and b
   output carryout,  // Carry out of the summation of a and b
   output overflow,  // True if the calculation resulted in an overflow
-  input[3:0] a,     // First operand in 2's complement format
-  input[3:0] b      // Second operand in 2's complement format
+  input[31:0] a,     // First operand in 2's complement format
+  input[31:0] b,      // Second operand in 2's complement format
+  input carryin       //subtractor option
 );
     // Your Code Here
-    wire carryout0, carryout1, carryout2;
-    structuralFullAdder adder0 (sum[0], carryout0, a[0], b[0], 0);
-    structuralFullAdder adder1 (sum[1], carryout1, a[1], b[1], carryout0);
-    structuralFullAdder adder2 (sum[2], carryout2, a[2], b[2], carryout1);
-    structuralFullAdder adder3 (sum[3], carryout,  a[3], b[3], carryout2);
-    
+    wire[31:0] carryout0;
+
+    genvar i;
+    generate
+      structuralFullAdder _adder (sum[0], carryout0[0], a[0], b[0], carryin);
+      for (i = 1; i < 32; i = i+1)
+        begin:genblock
+          structuralFullAdder _adder (sum[i],carryout0[i], a[i], b[i],carryout0[i-1]);
+        end
+    endgenerate
     wire negand, posand, a3inv, b3inv, s3inv;
-    `NOT a3inv(a3inv, a[3]);
-    `NOT b3inv(b3inv, b[3]);
-    `NOT s3inv(s3inv, sum[3]);
-    `AND posand(posand, a3inv, b3inv, carryout2);
-    `AND negand(negand, a[3], b[3], s3inv);
+    `NOT a3inv(a3inv, a[31]);
+    `NOT b3inv(b3inv, b[31]);
+    `NOT s3inv(s3inv, sum[31]);
+    `AND posand(posand, a3inv, b3inv, carryout0[30]);
+    `AND negand(negand, a[31], b[31], s3inv);
     `OR overflowgate(overflow, posand, negand);
 
 endmodule
