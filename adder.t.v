@@ -9,7 +9,8 @@ module testFullAdder();
     wire carryout, overflow;
     wire zero;
 
-    FullAdder4bit fulladder (result, carryout, overflow, zero, a, b,carryin);
+    FullAdder4bit fulladder (result, carryout, overflow, zero, a, b,carryin);  //TODO: should change adder name to 32bit
+
 
     initial begin
     $dumpfile("adder.vcd");

@@ -22,7 +22,8 @@ module structuralFullAdder
     `OR orgate(carryout,and0,and1);
 endmodule
 
-module FullAdder4bit
+module FullAdder4bit  //TODO: should change adder name to 32bit
+
 (
   output[31:0] sum,  // 2's complement sum of a and b
   output carryout,  // Carry out of the summation of a and b
