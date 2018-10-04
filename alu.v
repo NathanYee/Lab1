@@ -1,4 +1,3 @@
-`timescale 1 ns / 1 ps
 `include "adder.v"
 `include "subtractor.v"
 `include "Xor32bit.v"
@@ -65,7 +64,7 @@ module ALU
       endgenerate
 
       //FLAGS
-      
+
       wire outAover,outBover,outCover,outDover,outEover,outFover,outGover,outHover;
       wire outAcarry,outBcarry,outCcarry,outDcarry,outEcarry,outFcarry,outGcarry,outHcarry;
       wire outAzero,outBzero,outCzero,outDzero,outEzero,outFzero,outGzero,outHzero;
