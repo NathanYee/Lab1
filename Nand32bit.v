@@ -1,18 +1,15 @@
 module Nand32bit
 (
 output[31:0]  result,
-output        carryout,
-output        zero,
-output        overflow,
 input[31:0]   operandA,
-input[31:0]   operandB,
-input[2:0]    command
+input[31:0]   operandB
 );
 
 genvar i;
 generate
-for (i = 0; i < 32; i = i + 1) begin:
-    nand #20 nandgate(result[i], operandA[i], operandB[i]);
+for (i = 0; i < 32; i = i + 1)
+begin:genblock
+    nand #20 _nandgate(result[i], operandA[i], operandB[i]);
 end
 endgenerate
 endmodule

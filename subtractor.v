@@ -1,11 +1,8 @@
 // include and macros for timing
 `include "adder.v"
-`define AND and
-`define OR or
-`define XOR xor
-`define NOT not
+`define NOT not #10
 
-module Subtractor32bit 
+module Subtractor32bit
 (
   output[31:0] diff,  // 2's complement difference of a and b
   output carryout,    // Carry out of the summation of a and b
@@ -26,5 +23,5 @@ module Subtractor32bit
         end
     endgenerate
 
-    FullAdder4bit fulladder (diff, carryout, overflow, zeros, a, invertedB, carryin);  //TODO: should change adder name to 32bit
+    FullAdder32bit fulladder (diff, carryout, overflow, zeros, a, invertedB, carryin);
 endmodule

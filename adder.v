@@ -1,8 +1,10 @@
 // Adder circuit
-`define AND and
-`define OR or
-`define XOR xor
-`define NOT not
+`define AND2 and #30
+`define OR2 or  #30
+`define XOR2 xor  #30
+`define NOT not #10
+`define OR32 or #330
+`define AND3 and  #40
 
 module structuralFullAdder
 (
@@ -15,14 +17,14 @@ module structuralFullAdder
 );
     wire xor0, and0, and1;
     // Single bit adder with carryin / carryout
-    `XOR xor0gate(xor0,a,b);
-    `AND and0gate(and0,a,b);
-    `XOR sumgate(sum,xor0,carryin);
-    `AND and1gate(and1,xor0,carryin);
-    `OR orgate(carryout,and0,and1);
+    `XOR2 xor0gate(xor0,a,b);
+    `AND2 and0gate(and0,a,b);
+    `XOR2 sumgate(sum,xor0,carryin);
+    `AND2 and1gate(and1,xor0,carryin);
+    `OR2 orgate(carryout,and0,and1);
 endmodule
 
-module FullAdder4bit  //TODO: should change adder name to 32bit
+module FullAdder32bit  //TODO: should change adder name to 32bit
 
 (
   output[31:0] sum,  // 2's complement sum of a and b
@@ -50,10 +52,10 @@ module FullAdder4bit  //TODO: should change adder name to 32bit
     `NOT a3inv(a3inv, a[31]);
     `NOT b3inv(b3inv, b[31]);
     `NOT s3inv(s3inv, sum[31]);
-    `AND posand(posand, a3inv, b3inv, carryout0[30]);
-    `AND negand(negand, a[31], b[31], s3inv);
-    `OR overflowgate(overflow, posand, negand);
-    `OR zeroGate(one, sum[0],sum[1],sum[2],sum[3],sum[4],sum[5],sum[6],sum[7],sum[8],sum[9],sum[10],sum[11],sum[12],sum[13],sum[14],sum[15],sum[16],sum[17],sum[18],sum[19],sum[20],sum[21],sum[22],sum[23],sum[24],sum[25],sum[26],sum[27],sum[28],sum[29],sum[30],sum[31]);
+    `AND3 posand(posand, a3inv, b3inv, carryout0[30]);
+    `AND3 negand(negand, a[31], b[31], s3inv);
+    `OR2 overflowgate(overflow, posand, negand);
+    `OR32 zeroGate(one, sum[0],sum[1],sum[2],sum[3],sum[4],sum[5],sum[6],sum[7],sum[8],sum[9],sum[10],sum[11],sum[12],sum[13],sum[14],sum[15],sum[16],sum[17],sum[18],sum[19],sum[20],sum[21],sum[22],sum[23],sum[24],sum[25],sum[26],sum[27],sum[28],sum[29],sum[30],sum[31]);
     `NOT one2zero(zeros,one);
 
 

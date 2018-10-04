@@ -11,8 +11,9 @@ input[2:0]    command
 
 genvar i;
 generate
-for (i = 0; i < 32; i = i + 1) begin:
-    or #30 orgate(result[i], operandA[i], operandB[i]);
+for (i = 0; i < 32; i = i + 1)
+begin:genblock
+    or #30 _orgate(result[i], operandA[i], operandB[i]);
 end
 endgenerate
 endmodule

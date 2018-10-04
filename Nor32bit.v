@@ -1,18 +1,15 @@
 module Nor32bit
 (
 output[31:0]  result,
-output        carryout,
-output        zero,
-output        overflow,
 input[31:0]   operandA,
-input[31:0]   operandB,
-input[2:0]    command
+input[31:0]   operandB
 );
 
 genvar i;
 generate
-for (i = 0; i < 32; i = i + 1) begin:
-    Nor #20 norgate(result[i], operandA[i], operandB[i]);
+for (i = 0; i < 32; i = i + 1)
+begin:genblock
+    Nor #20 _norgate(result[i], operandA[i], operandB[i]);
 end
 endgenerate
 endmodule
