@@ -12,7 +12,7 @@ module aluMod();
     reg[31:0]   operandB;
     reg[2:0]    command;
 
-    ALU alu32bit (result, carryout, overflow, zero, operandA, operandB, carryin);
+    ALU alu32bit (result, carryout, zero, overflow, operandA, operandB, command);
 
 
     initial begin

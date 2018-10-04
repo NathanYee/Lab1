@@ -7,15 +7,6 @@
 `include "Nor32bit.v"
 `include "Or32bit.v"
 
-`define ADD  3'b000
-`define SUB  3'b001
-`define XOR  3'b010
-`define SLT  3'b011
-`define AND  3'b100
-`define NAND 3'b101
-`define NOR  3'b110
-`define OR   3'b111
-
 module ALU
     (
       output[31:0]  result,
