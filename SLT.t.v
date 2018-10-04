@@ -1,6 +1,6 @@
 // Adder testbench
-`timescale 1 ns / 1 ps
-`include "SLT.v"
+//`timescale 1 ns / 1 ps
+//include "SLT.v"
 
 module testSLT();
     reg [31:0] a, b;

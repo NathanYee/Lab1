@@ -18,49 +18,48 @@ module aluMod();
     initial begin
     $dumpfile("alu.vcd");
     $dumpvars;
-
-    operandA = 32'b00000000000000000000000000000000; operandB = 32'b00000000000000000000000000000000; command = 3'b000; #1000
-    $display("%b",carryout);
+    $display("result                           overflow carryout zero | Eresult                          Eoverflow Ecarryout Ezero");
+    operandA = 32'b00000000000000110000110101000000; operandB = 32'b00000000000000000100111000100000; command = 3'b000; #3000
     if((result !== 32'b00000000000000110101101101100000) || (overflow !== 0) || (carryout !== 0) || (zero !== 0)) begin
       $display("%b                                %b        %b        %b    | 00000000000000110101101101100000 0         0         0",result,overflow,carryout,zero);
     end
-    operandA = 32'b00000000000000000000000000000000; operandB = 32'b00000000000000000000000000000000; command = 3'b000; #1000
-    if((result !== 32'b10010100101101100010111000000000) || (overflow !== 0) || (carryout !== 1) || (zero !== 0)) begin
-      $display("%b                                %b        %b        %b    | 10010100101101100010111000000000 0         1         0",result,overflow,carryout,zero);
+    operandA = 32'b00001011111010111100001000000000; operandB = 32'b10001000110010100110110000000000; command = 3'b000; #3000
+    if((result !== 32'b10010100101101100010111000000000) || (overflow !== 0) || (carryout !== 0) || (zero !== 0)) begin
+      $display("%b                                %b        %b        %b    | 10010100101101100010111000000000 0         0         0",result,overflow,carryout,zero);
     end
-    operandA = 32'b00000000000000000000000000000001; operandB = 32'b00000000000000000000000000000000; command = 3'b001; #1000
-    if((result !== 32'b00000000000000101011111100100000) || (overflow !== 0) || (carryout !== 0) || (zero !== 0)) begin
+    operandA = 32'b00000000000000110000110101000000; operandB = 32'b00000000000000000100111000100000; command = 3'b001; #3000
+    if((result !== 32'b00000000000000101011111100100000) || (overflow !== 0) || (carryout !== 1) || (zero !== 0)) begin
       $display("%b                                %b        %b        %b    | 00000000000000101011111100100000 0         0         0",result,overflow,carryout,zero);
     end
-    operandA = 32'b00000000000000000000000000000001; operandB = 32'b00000000000000000000000000000000; command = 3'b001; #1000
+    operandA = 32'b00001011111010111100001000000000; operandB = 32'b10001000110010100110110000000000; command = 3'b001; #3000
     if((result !== 32'b10000011001000010101011000000000) || (overflow !== 1) || (carryout !== 0) || (zero !== 0)) begin
       $display("%b                                %b        %b        %b    | 10000011001000010101011000000000 1         0         0",result,overflow,carryout,zero);
     end
-    operandA = 32'b00000000000000000000000000000001; operandB = 32'b00000000000000000000000000000000; command = 3'b001; #1000
-    if((result !== 32'b00000000000000000000000000000000) || (overflow !== 0) || (carryout !== 0) || (zero !== 1)) begin
+    operandA = 32'b00000000000000011000011010100000; operandB = 32'b00000000000000011000011010100000; command = 3'b001; #3000
+    if((result !== 32'b00000000000000000000000000000000) || (overflow !== 0) || (carryout !== 1) || (zero !== 1)) begin
       $display("%b                                %b        %b        %b    | 00000000000000000000000000000000 0         0         1",result,overflow,carryout,zero);
     end
-    operandA = 32'b00000000000000000000000000001010; operandB = 32'b00000000000000000000001111101001; command = 3'b010; #1000
+    operandA = 32'b00000000000000000000000000000011; operandB = 32'b00000000000000000000000000000101; command = 3'b010; #3000
     if((result !== 32'b00000000000000000000000000001001) || (overflow !== 0) || (carryout !== 0) || (zero !== 0)) begin
       $display("%b                                %b        %b        %b    | 00000000000000000000000000001001 0         0         0",result,overflow,carryout,zero);
     end
-    operandA = 32'b00000000000000000000000000001011; operandB = 32'b00000000000000000000000000000000; command = 3'b011; #1000
+    operandA = 32'b00000000000000000000000000000011; operandB = 32'b00000000000000000000000000000101; command = 3'b011; #3000
     if((result !== 32'b00000000000000000000000000000000) || (overflow !== 0) || (carryout !== 0) || (zero !== 0)) begin
       $display("%b                                %b        %b        %b    | 00000000000000000000000000000000 0         0         0",result,overflow,carryout,zero);
     end
-    operandA = 32'b00000000000000000000000001100100; operandB = 32'b00000000000000000000000000000001; command = 3'b100; #1000
+    operandA = 32'b00000000000000000000000000000011; operandB = 32'b00000000000000000000000000000101; command = 3'b100; #3000
     if((result !== 32'b00000000000000000000000000000001) || (overflow !== 0) || (carryout !== 0) || (zero !== 0)) begin
       $display("%b                                %b        %b        %b    | 00000000000000000000000000000001 0         0         0",result,overflow,carryout,zero);
     end
-    operandA = 32'b00000000000000000000000001100101; operandB = 32'b00000000000000000000010001010110; command = 3'b101; #1000
+    operandA = 32'b00000000000000000000000000000011; operandB = 32'b00000000000000000000000000000101; command = 3'b101; #3000
     if((result !== 32'b00000000000000000000000000001110) || (overflow !== 0) || (carryout !== 0) || (zero !== 0)) begin
       $display("%b                                %b        %b        %b    | 00000000000000000000000000001110 0         0         0",result,overflow,carryout,zero);
     end
-    operandA = 32'b00000000000000000000000001101110; operandB = 32'b00000000000000000000001111101000; command = 3'b110; #1000
+    operandA = 32'b00000000000000000000000000000011; operandB = 32'b00000000000000000000000000000101; command = 3'b110; #3000
     if((result !== 32'b00000000000000000000000000001000) || (overflow !== 0) || (carryout !== 0) || (zero !== 0)) begin
       $display("%b                                %b        %b        %b    | 00000000000000000000000000001000 0         0         0",result,overflow,carryout,zero);
     end
-    operandA = 32'b00000000000000000000000001101111; operandB = 32'b00000000000000000000000001101111; command = 3'b111; #1000
+    operandA = 32'b00000000000000000000000000000011; operandB = 32'b00000000000000000000000000000101; command = 3'b111; #3000
     if((result !== 32'b00000000000000000000000000000111) || (overflow !== 0) || (carryout !== 0) || (zero !== 0)) begin
       $display("%b                                %b        %b        %b    | 00000000000000000000000000000111 0         0         0",result,overflow,carryout,zero);
     end

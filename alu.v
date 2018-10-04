@@ -17,6 +17,7 @@ module ALU
       input[31:0]   operandB,
       input[2:0]    command
     );
+    wire[31:0] ncommand;
     genvar i;
     generate
       for (i = 0; i < 3; i = i+1)
@@ -24,24 +25,24 @@ module ALU
           not #10 _ncommand(ncommand[i],command[i]);
         end
     endgenerate
-    wire resultAdd, carryoutAdd, overflowAdd, zeroAdd, resultSub, carryoutSub, overflowSub, zeroSub;
-    wire resultXor, carryoutXor, overflowXor, zeroXor, resultSLT, carryoutSLT, overflowSLT, zeroSLT;
-    wire resultOr, carryoutOr, overflowOr, zeroOr, resultNand, carryoutNand, overflowNand, zeroNand;
-    wire resultNor, carryoutNor, overflowNor, zeroNor, resultAnd, carryoutAnd, overflowAnd, zeroAnd;
-        FullAdder32bit adder32bit (resultAdd, carryoutAdd, overflowAdd, zeroAdd, operandA, operandB, 0);
-        Subtractor32bit sub32 (resultSub, carryoutSub, overflowSub, zeroSub, operandA, operandB, 1);
+    wire[31:0] resultAdd, resultSub, resultXor, resultSLT, resultOr, resultNand,resultNor, resultAnd;
+    wire carryoutAdd, overflowAdd, zeroAdd, carryoutSub, overflowSub, zeroSub;
+    wire carryoutXor, overflowXor, zeroXor, carryoutSLT, overflowSLT, zeroSLT;
+    wire carryoutOr, overflowOr, zeroOr, carryoutNand, overflowNand, zeroNand;
+    wire carryoutNor, overflowNor, zeroNor, carryoutAnd, overflowAnd, zeroAnd;
+        FullAdder32bit adder32bit (resultAdd, carryoutAdd, overflowAdd, zeroAdd, operandA, operandB, 1'b0);
+        Subtractor32bit sub32 (resultSub, carryoutSub, overflowSub, zeroSub, operandA, operandB, 1'b1);
         Xor32bit xor32 (resultXor, operandA, operandB); assign carryoutXor = 0; assign overflowXor = 0; assign zeroXor = 0;
-        SLT SLT32 (resultSLT, operandA, operandB, 1); assign carryoutSLT = 0; assign overflowSLT = 0; assign zeroSLT = 0;
+        SLT SLT32 (resultSLT, operandA, operandB, 1'b1); assign carryoutSLT = 0; assign overflowSLT = 0; assign zeroSLT = 0;
         And32bit and32 (resultAnd, operandA, operandB); assign carryoutAnd = 0; assign overflowAnd = 0; assign zeroAnd = 0;
         Nand32bit nand32 (resultNand, operandA, operandB); assign carryoutNand = 0; assign overflowNand = 0; assign zeroNand = 0;
         Nor32bit nor32 (resultNor, operandA, operandB); assign carryoutNor = 0; assign overflowNor = 0; assign zeroNor = 0;
         Or32bit or32 (resultOr, operandA,operandB); assign carryoutOr = 0; assign overflowOr = 0; assign zeroOr = 0;
-
     wire[31:0] outA,outB,outC,outD,outE,outF,outG,outH;
       genvar j;
       generate
         for (j = 0;j < 32; j = j+1)
-        begin:genblock
+        begin:genblock0
           and #50 _andgateA(outA[j],resultAdd[j],ncommand[2],ncommand[1],ncommand[0]);
           and #50 _andgateB(outB[j],resultSub[j],ncommand[2],ncommand[1],command[0]);
           and #50 _andgateC(outC[j],resultXor[j],ncommand[2],command[1],ncommand[0]);

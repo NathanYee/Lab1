@@ -1,5 +1,5 @@
 // include and macros for timing
-`include "adder.v"
+//`include "adder.v"
 `define NOT not #10
 
 module Subtractor32bit

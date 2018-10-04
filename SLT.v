@@ -1,5 +1,5 @@
 // include and macros for timing
-`include "subtractor.v"
+//`include "subtractor.v"
 `define XOR xor #30
 
 module SLT
