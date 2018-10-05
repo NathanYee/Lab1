@@ -1,21 +1,24 @@
-// Adder testbench
+// Subtractor testbench
 `timescale 1 ns / 1 ps
 `include "subtractor.v"
+`include "adder.v"
 
 module testFullSubtract();
+    // Defining inputs and outputs
     reg [31:0] a, b;
     reg carryin;
     wire [31:0] result;
     wire carryout, overflow;
     wire zero;
-    //assign carryin = 1;
+
+    // Instatntiating subtractor
     Subtractor32bit sub32 (result, carryout, overflow, zero, a, b,carryin);
 
 
     initial begin
     $dumpfile("slt.vcd");
     $dumpvars;
-        carryin = 1;
+        carryin = 1;    // Specifying key input for subtraction
         $display("result                           overflow carryout zero | Eresult                          Eoverflow Ecarryout Ezero");
         a = 32'b00000000000000000000000000001010; b = 32'b00000000000000000000000000000101; #3000
         if((result !== 32'b00000000000000000000000000000101) || (overflow !== 0) || (carryout !== 1) || (zero !== 0)) begin

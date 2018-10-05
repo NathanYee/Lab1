@@ -1,19 +1,22 @@
-// Adder testbench
-//`timescale 1 ns / 1 ps
-//include "SLT.v"
+// SLT Testbench
+`timescale 1 ns / 1 ps
+`include "subtractor.v"
+`include "adder.v"
+`include "SLT.v"
 
 module testSLT();
+    //defining inputs and outputs
     reg [31:0] a, b;
     reg carryin;
     wire [31:0] result;
     reg overflow, carryout, zero;
 
-    SLT SLT32 (result, a, b,1);
+    SLT SLT32 (result, a, b,1); // Instantiating SLT
 
 
     initial begin
-    overflow = 0; carryout = 0; zero = 0;
-    $dumpfile("slt.vcd");
+    overflow = 0; carryout = 0; zero = 0;   // Setting Flags to zero as they are not relevent to the SLT
+    $dumpfile("slt.vcd");   // Creating .vcd file for timing analysis
     $dumpvars;
         $display("result                           overflow carryout zero | Eresult                          Eoverflow Ecarryout Ezero");
         a = 32'b01111111111111111111111111111111; b = 32'b00000000000000000000000000000001; #2000
